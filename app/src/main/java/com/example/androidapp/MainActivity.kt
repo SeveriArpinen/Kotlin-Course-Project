@@ -46,66 +46,80 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun TodoView() {
-    val todos = remember {
-        mutableStateListOf(
-            Todo("test"),
-            Todo("AAAAAAAAAAA")
+    val todos = remember {mutableStateListOf<Todo>()}
+    var showList by remember {mutableStateOf(false)}
+    if (showList) {
+        TodoListView(
+            todos = todos,
+            onBack = {showList = false}
         )
     }
-
+    if (!showList){
+        AddTodoView(
+            todos = todos,
+            onGoList = {showList = true}
+        )
+    }
+}
+@Composable
+fun AddTodoView(
+    todos: MutableList<Todo>,
+    onGoList: () -> Unit) {
     var newTodo by remember {mutableStateOf("")}
 
-    Column (
+    Column(
         modifier = Modifier
-            .fillMaxSize()
             .padding(10.dp),
+
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
-        Text(
-            text = "My list of Todos!",
-            fontSize = 20.sp,
-
-        )
+        Text("Add a new TODO!")
         TextField(
-
             value = newTodo,
-            label = {
-                Text("Enter a new TODO")
-            },
-            onValueChange = {newTodo = it}
+            onValueChange = {newTodo = it},
+            label = {Text("Input a new TODO:")}
         )
         Button(
             onClick = {
-                todos.add(
-                    Todo(
-                        newTodo
-                    )
-                )
+                todos.add(Todo(newTodo))
                 newTodo = ""
-            },
-            modifier = Modifier
-                .padding(10.dp)
-        ) {
-            Text ("Add a new task")
-        }
-        if (todos.isEmpty()){
-            Text (
-                text = "No todos yet, add your first!",
-                modifier = Modifier
-                    .padding(10.dp)
-            )
-        } else {
-            for (todo in todos) {
-                Text(
-                    text = todo.todo,
-                    modifier = Modifier
-                        .padding(10.dp)
-                )
             }
+        )
+        {
+            Text("Add!")
         }
+        Button(
+            onClick = onGoList
+        ) {
+            Text("Go to List of todos!")
+        }
+    }
+}
 
+@Composable
+fun TodoListView(
+    todos: MutableList<Todo>,
+    onBack: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .padding(10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("My Todo List")
+
+        Button(
+            onClick = onBack
+        ) {
+            Text("Go back")
+        }
     }
 
-
+    if (todos.isEmpty()) {
+        Text("No todos yet!")
+    } else {
+        for (todo in todos) {
+            Text(todo.todo)
+        }
+    }
 }
