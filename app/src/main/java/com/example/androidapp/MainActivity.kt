@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -33,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidapp.ui.theme.AndroidAppTheme
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,13 +75,15 @@ fun AddTodoView(
     var newTodo by remember {mutableStateOf("")}
     Column(
         modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
             .fillMaxSize()
             . padding(10.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Add a new Todo!",
-            fontSize = 15.sp)
+            fontSize = 30.sp,
+            color = MaterialTheme.colorScheme.onBackground,)
         Spacer(
             modifier = Modifier
                 .height(20.dp)
@@ -134,11 +138,14 @@ fun TodoListView(
 ) {
     Column(
         modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
+
             .fillMaxSize()
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("My Todo List",
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .padding(bottom = 20.dp)
         )
@@ -152,7 +159,8 @@ fun TodoListView(
         }
 
         if (todos.isEmpty()) {
-            Text("No todos yet!")
+            Text("No todos yet!",
+                color = MaterialTheme.colorScheme.onBackground)
         } else {
             for ((index, todo) in todos.withIndex()) {
                 Row(
@@ -171,6 +179,7 @@ fun TodoListView(
 
                     Text(
                         text = todo.todo,
+                        color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
                             .weight(1f)
                             .padding(10.dp)
