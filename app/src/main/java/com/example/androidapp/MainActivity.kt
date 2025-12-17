@@ -146,8 +146,10 @@ fun TodoListView(
     ) {
         Text("My Todo List",
             color = MaterialTheme.colorScheme.onBackground,
+            fontSize = 25.sp,
             modifier = Modifier
                 .padding(bottom = 20.dp)
+                .padding(top = 20.dp)
         )
 
         Button(
@@ -180,6 +182,7 @@ fun TodoListView(
                     Text(
                         text = todo.todo,
                         color = MaterialTheme.colorScheme.onBackground,
+                        fontSize = 18.sp,
                         modifier = Modifier
                             .weight(1f)
                             .padding(10.dp)
