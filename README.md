@@ -1,5 +1,4 @@
 Repository for the course: Software Development Skills: Mobile 2025-26
-Made By Severi Arpinen - 000253077
 
 Video demo of the project: https://youtu.be/gZB4X1p_4gg
 
